@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import axios from "axios"
 // http://www.omdbapi.com/?apikey=bbb5e59b&t=tenet
 
@@ -26,16 +26,11 @@ const Search = () => {
         await fetchbysearch(state)
          .then((data)=>{
              setstate(data)
+             console.log(data);
              
          })
     }
-
-
-
-    useEffect(() => {
-
-    }, [])
-
+    
     return (
         <div style={{ textAlign: 'center' }} >
             <h1>Search you movie</h1>
@@ -44,7 +39,7 @@ const Search = () => {
             <br/>
             <br/>
             
-            {state?<div>{state.Poster?<img src={state.Poster}/>:<p>{state.Error}</p>}</div>:<p>Loading..</p>}
+            {state?<div>{state.Poster?<div><img src={state.Poster} alt={state.Title} /><p>{state.Title}</p><p>{state.Plot}</p></div>:<p>{state.Error}</p>}</div>:<p>Loading..</p>}
         </div>
     )
 }

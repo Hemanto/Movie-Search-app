@@ -7,48 +7,51 @@ const Home = (props) => {
   // const apikey = 'bbb5e59b'
   // const key ='k_1dnxafx4'
   // const URl = 'https://imdb-api.com'
-  const intheater = 'https://imdb-api.com/en/API/InTheaters/k_1dnxafx4'
+  //const intheater = 'https://imdb-api.com/en/API/InTheaters/k_1dnxafx4'
 
 
   // http://www.omdbapi.com/?t=te&y=2020&plot=full
 
 
-  const [state, setstate] = useState([])
+  const [state, setstate] = useState(JSON.parse(localStorage.getItem('movie')) || [])
 
-  
-  function makeGetRequest(path) { 
-      axios.get(path).then( 
-          (response) => { 
-              var result = response.data; 
-              console.log(result); 
-              setstate(result.items)
-          }, 
-          (error) => { 
-              console.log(error); 
-          } 
-      ); 
-  } 
-  
+  //localStorage.getItem('movie')
+
+  function makeGetRequest(path) {
+    axios.get(path).then(
+      (response) => {
+        var result = response.data;
+        console.log(result);
+        setstate(result.items)
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
+
 
   useEffect(() => {
-    makeGetRequest("https://imdb-api.com/en/API/InTheaters/k_1dnxafx4")
+    if (state.length === 0) {
+      makeGetRequest("https://imdb-api.com/en/API/InTheaters/k_1dnxafx4")
+    }
+  }, [state])
 
-  }, [])
 
-
-    return (
-        <div>
-        {state[0]?<div className="list-movie">{state.map(movies=>
+  return (
+    <div>
+      {state[0] ? <div className="list-movie">{state.map(movies =>
         <OnTheater
-        img={movies.image} 
-        alt={movies.title} 
-        key={movies.id}
-        />)}</div>:<p>loading..</p>} 
-       
-      </div>
-      
-    )
-   
+        movId = {movies.id}
+          img={movies.image}
+          alt={movies.title}
+          key={movies.id}
+        />)}</div> : <p>loading..</p>}
+
+    </div>
+
+  )
+
 }
 
 export default Home

@@ -1,16 +1,18 @@
+import { BrowserRouter } from 'react-router-dom';
 import './App.css';
-import Home from './components/Home';
-import Search from './components/Search';
+import Routes from './Routes'
+import Nav from './components/Nav';
 
 
 
 function App() {
   return (
-      <div>
-        <Search/>
-        <h2 style={{textAlign:'center'}}>IN THEATERS</h2>
-        <Home/>
-      </div>
+    <BrowserRouter>
+    
+        <Nav/>
+        <Routes/>
+      
+    </BrowserRouter>
   );
 }
 
