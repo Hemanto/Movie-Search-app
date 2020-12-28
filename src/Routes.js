@@ -9,6 +9,9 @@ const Router = () => {
             <Route exact path='/details/:data/:id'>
                 <Details />
             </Route>
+            <Route path='/q=:movieName'>
+                <Main />
+            </Route>
             <Route exact path='/'>
                 <Main />
             </Route>
